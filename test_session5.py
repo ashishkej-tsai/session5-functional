@@ -1,153 +1,104 @@
 import subprocess
 import sys
 import random
-import math
-from decimal import Decimal
-import decimal
+
+
 
 import pytest
-import session4
+import session5
+from session5 import time_it, polygon_area, squared_power_list, speed_converter, temp_converter
 import time
 import os.path
 import re
 import inspect 
 
 README_CONTENT_CHECK_FOR = [
-    'Qualean',
-    'Decimal',
+    'squared_power_list',
+    'polygon_area',
+    'temp_converter',
     'Test Cases',
+    'speed_converter',
+    'time_it'
 ]
 
-def test_add_100_times():
-    tot_sum = Decimal('0')
-    q = Decimal(str(session4.Qualean(1)))
-    for _ in range(100):
-        tot_sum += q
-    assert tot_sum == 100 * q, "q + q + ... 100 times is not equal to 100 * q"
 
-def test_qualean_eq_decimal_sqrt():
-    q = session4.Qualean(1)
-    if q.imag < 0:
-        q.imag = q.__invertsign__()
-    assert q.__sqrt__() == Decimal(str(q)).sqrt(), "Sqrt Function is not equal to Decimal sqrt"
 
-def test_sum_million_different_eq_zero():
-    with decimal.localcontext() as ctx:
-        ctx.prec = 10
-        tot_sum = Decimal('0')
-        for _ in range(1000000):
-            tot_sum += Decimal(str(session4.Qualean(random.choice([-1,0,1]))))
+def test_print_type_error():
+    with pytest.raises(TypeError, match=r".* keyword .*"):
+        output, avg_time = time_it(print, 1, 2, 3, sep='-', endi= ' ***\n', repetitions=5)
+
+def test_squared_power_list_type_error():
+    with pytest.raises(TypeError, match=r".* keyword .*"):
+        output, avg_time = time_it(squared_power_list, 1, sep='-', endi= ' ***\n', repetitions=5)
+
+def test_polygon_area_type_error():
+    with pytest.raises(TypeError, match=r".* keyword .*"):
+        output, avg_time = time_it(polygon_area, 1, sep='-', endi= ' ***\n', repetitions=5)
+
+def test_temp_converter_type_error():
+    with pytest.raises(TypeError, match=r".* keyword .*"):
+        output, avg_time = time_it(temp_converter, 1, sep='-', endi= ' ***\n', repetitions=5)
+
+def test_speed_converter_type_error():
+    with pytest.raises(TypeError, match=r".* keyword .*"):
+        output, avg_time = time_it(speed_converter, 1, sep='-', endi= ' ***\n', repetitions=5)
+
+def test_time_it_type_error():
+    with pytest.raises(NameError, match=r".* is not .*"):
+        output, avg_time = time_it(printi, 1, 2, 3, sep='-', endi= ' ***\n', repetitions=5)
+
+def test_print_func():
+    output, avg_time = time_it(print, 1, 2, 3, sep='-', end= ' ***\n', repetitions=5)
+    assert output == None, "Print functionality not working"
+
+def test_squared_power_list_func():
+    output, avg_time = time_it(squared_power_list,2, start=0, end=5, repetitions=5)
+    assert output == [1,2,4,8,16,32], "squared_power_list functionality not working"
+
+def test_polygon_area_func():
+    output, avg_time = time_it(polygon_area, 2, sides=4, repetitions=5)
+    assert round(output,2) == 4.0, "polygon_area functionality not working"
+
+def test_temp_converter_func():
+    output, avg_time = time_it(temp_converter, 32, temp_given_in = 'f', repetitions=5)
+    assert output == 0, "temp_converter functionality not working"
+
+def test_speed_converter_func():
+    output, avg_time = time_it(speed_converter, 100, dist='m', time='hr', repetitions=5)
+    assert output == 100000, "Print functionality not working"
+
+def test_squared_power_list_value_error():
+    with pytest.raises(ValueError, match=r".* greater .*"):
+        output, avg_time = time_it(squared_power_list,2, start=-10, end=5, repetitions=5)
+
+def test_polygon_area_value_error():
+    with pytest.raises(ValueError, match=r".* can be .*"):
+        output, avg_time = time_it(polygon_area, 2, sides=2, repetitions=5)
+
+def test_temp_converter_value_error():
+    with pytest.raises(ValueError, match=r".* can be .*"):
+        output, avg_time = time_it(temp_converter, 32, temp_given_in = 'r', repetitions=5)
+
+def test_speed_converter_value_error():
+    with pytest.raises(ValueError, match=r".* can be .*"):
+        output, avg_time = time_it(speed_converter, -100, dist='m', time='hr', repetitions=5)
+
+def test_speed_converter_dist_value_error():
+    with pytest.raises(ValueError, match=r".* can be .*"):
+        output, avg_time = time_it(speed_converter, 10, dist='min', time='hr', repetitions=5)
+
+def test_speed_converter_time_value_error():
+    with pytest.raises(ValueError, match=r".* can be .*"):
+        output, avg_time = time_it(speed_converter, 10, dist='m', time='km', repetitions=5)
+
+def test_other_print_value_error():
+    with pytest.raises(ValueError, match=r".* can .*"):
+        output, avg_time = time_it(speed_converter, 10, 20, dist='min', time='hr', repetitions=5)
+
+def test_time_it_value_error():
+    with pytest.raises(ValueError, match=r".* less .*"):
+        output, avg_time = time_it(print, 1, 2, 3, sep='-', end= ' ***\n', repetitions=0)
     
-    assert math.isclose(tot_sum,0.0), "Sum of million different Qualeans should be close to zero"
-
-def test_and_undefined():
-    q1 = session4.Qualean(0) #q1 is False
-    assert (q1 and q2) == False, "With undefined q2 and q1 False AND is not working"
-
-def test_or_undefined():
-    q1 = session4.Qualean(1) #q1 is not False
-    assert (q1 or q2), "With undefined q2 and q1 not False OR is not working"
-
-def test_and_functionality():
-    q1 = session4.Qualean(1) #q1 is not False
-    q2 = session4.Qualean(0) #q2 False
-    assert q1.__and__(q2) == q2.imag, "AND function is not working"
-    assert q1.__and__(q1) == q1.imag, "AND function is not working"
-    assert q2.__and__(q2) == q2.imag, "AND function is not working"
-
-def test_or_functionality():
-    q1 = session4.Qualean(1) #q1 is not False
-    q2 = session4.Qualean(0) #q2 False
-    assert q1.__or__(q2) == q1.imag, "OR function is not working"
-    assert q1.__or__(q1) == q1.imag, "OR function is not working"
-    assert q2.__or__(q2) == q2.imag, "OR function is not working"
-
-def test_le_functionality():
-    q1 = session4.Qualean(1) #q1 is not False
-    q2 = session4.Qualean(0) #q2 False
-    if q1.imag > 0:
-        assert q1.__le__(q2) == False, "LE function is not working"
-        assert q1.__le__(q1) == True, "LE function is not working"
-        assert q2.__le__(q2) == True, "LE function is not working"
-    else:
-        assert q1.__le__(q2) == True, "LE function is not working"
-        assert q1.__le__(q1) == True, "LE function is not working"
-        assert q2.__le__(q2) == True, "LE function is not working"
-
-def test_lt_functionality():
-    q1 = session4.Qualean(1) #q1 is not False
-    q2 = session4.Qualean(0) #q2 False
-    if q1.imag > 0:
-        assert q1.__lt__(q2) == False, "LT function is not working"
-        assert q1.__lt__(q1) == False, "LT function is not working"
-        assert q2.__lt__(q2) == False, "LT function is not working"
-    else:
-        assert q1.__lt__(q2) == True, "LT function is not working"
-        assert q1.__lt__(q1) == False, "LT function is not working"
-        assert q2.__lt__(q2) == False, "LT function is not working"
-
-def test_gt_functionality():
-    q1 = session4.Qualean(1) #q1 is not False
-    q2 = session4.Qualean(0) #q2 False
-    if q1.imag < 0:
-        assert q1.__gt__(q2) == False, "GT function is not working"
-        assert q1.__gt__(q1) == False, "GT function is not working"
-        assert q2.__gt__(q2) == False, "GT function is not working"
-    else:
-        assert q1.__gt__(q2) == True, "GT function is not working"
-        assert q1.__gt__(q1) == False, "GT function is not working"
-        assert q2.__gt__(q2) == False, "GT function is not working"
-
-def test_ge_functionality():
-    q1 = session4.Qualean(1) #q1 is not False
-    q2 = session4.Qualean(0) #q2 False
-    if q1.imag < 0:
-        assert q1.__ge__(q2) == False, "GE function is not working"
-        assert q1.__ge__(q1) == True, "GE function is not working"
-        assert q2.__ge__(q2) == True, "GE function is not working"
-    else:
-        assert q1.__ge__(q2) == True, "GE function is not working"
-        assert q1.__ge__(q1) == True, "GE function is not working"
-        assert q2.__ge__(q2) == True, "GE function is not working"
-
-def test_eq_functionality():
-    q1 = session4.Qualean(1) #q1 is not False
-    q2 = session4.Qualean(0) #q2 False
-    assert q1.__eq__(q2) == False, "EQ function is not working"
-    assert q1.__eq__(q1) == True, "EQ function is not working"
-    assert q2.__eq__(q2) == True, "EQ function is not working"
-
-def test_qualean_value_error_real():
-    with pytest.raises(ValueError, match=r".* must .*"):
-        session4.Qualean(2.0), 'Real Number must be either -1, 0 , 1 value error'
-
-def test_invertsign_functionality():
-    q1 = session4.Qualean(1) #q1 is not False
-    assert q1.__invertsign__() == -q1.imag, "INVERT SIGN function is not working"
-
-def test_add_functionality():
-    q1 = session4.Qualean(1) 
-    q2 = session4.Qualean(-1) 
-    q1.imag = Decimal('0.5')
-    q2.imag = Decimal('0.4')
-    assert q1.__add__(q2) == Decimal('0.9'), "ADD function is not working"
-
-def test_sqrt_functionality():
-    q1 = session4.Qualean(1) #q1 is not False
-    q1.imag = Decimal('4')
-    assert q1.__sqrt__() == Decimal('2'), "SQRT function is not working"
-
-def test_mul_functionality():
-    q1 = session4.Qualean(1) #q1 is not False
-    q2 = session4.Qualean(0) #q2 False
-    assert q1.__mul__(q2) == 0, "MUL function not working"
-
-def test_bool_functionality():
-    q1 = session4.Qualean(0) #q1 is not False
-    q2 = session4.Qualean(1) #q2 False
-    assert q1.__bool__() == False, "BOOL function is not working"
-    assert q2.__bool__() == True, "BOOL function is not working"
-
 def test_readme_exists():
     assert os.path.isfile("README.md"), "README.md file missing!"
 
@@ -167,33 +118,32 @@ def test_readme_proper_description():
             READMELOOKSGOOD = False
             pass
     assert READMELOOKSGOOD == True, "You have not described all the functions/class well in your README.md file"
-
+    
 def test_readme_file_for_formatting():
-    f = open("README.md", "r")
+    f = open("README.md", "r",encoding="utf-8")
     content = f.read()
     f.close()
     assert content.count("#") >= 10
 
     
 def test_all_funcs_present():
-    functions = inspect.getmembers(session4, inspect.isfunction)
-    funcs = ["_and__",  "__or__", "__repr__", "__str__", "__add__", "__eq__", "__float__", "__ge__", "__gt__", "__invertsign__", 
-                    "__le__", "__lt__", "__mul__", "__sqrt__", "__bool__"]
-    for func in functions:
+    code_lines = inspect.getsource(session5)
+    funcs = ["squared_power_list","polygon_area","temp_converter","speed_converter","time_it"]
+    for func in funcs:
         assert func in code_lines, func + ' not implemented'
 
 def test_fourspace():
     ''' Returns pass if used four spaces for each level of syntactically \
     significant indenting.'''
-    lines = inspect.getsource(session4)
+    lines = inspect.getsource(session5)
     spaces = re.findall('\n +.', lines)
     for space in spaces:
         assert re.search('[a-zA-Z#@\'\"]', space), "Your code intentation does not follow PEP8 guidelines"
         assert len(re.sub(r'[a-zA-Z#@\n\"\']', '', space)) % 4 == 0, \
-        "Your code intentation does not follow PEP8 guidelines" 
+        "Your code intentation does not follow PEP8 guidelines"
 
 def test_function_name_had_cap_letter():
-    functions = inspect.getmembers(session4, inspect.isfunction)
+    functions = inspect.getmembers(session5, inspect.isfunction)
     for function in functions:
         assert len(re.findall('([A-Z])', function[0])) == 0, "You have used Capital letter(s) in your function names"
 

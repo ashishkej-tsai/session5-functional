@@ -1,64 +1,66 @@
 
-# EPAi Session4 Assignment
-Assignment to check our knowledge of Numeric types, Decimal, Complex Numbers, Bankers rounding. Also how to write test cases ourselves.
+# EPAi Session5 Assignment
+Assignment to check our knowledge of Functional Parameters, named or keyword arguments, positional argument. Also how to write test cases ourselves.
 
-## test add 100 times
-Check whether q+q+ 100 times == 100 * q 
+## test_print_type_error():
+   
 
-## test qualean eq decimal sqrt
-Check whether our implementation of sqrt equal Decimal sqrt function
+## test_squared_power_list_type_error():
+    
 
+## test_polygon_area_type_error():
+    
 
-## test sum million different eq zero()
-Check adding million different Qualeans is close to zero or not. 
+## test_temp_converter_type_error():
+    
 
-## test and undefined()
-Check q1 and q2 returns False when q2 is not defined as well and q1 is False
+## test_speed_converter_type_error():
+    
 
-## test or undefined()
-Check q1 or q2 returns True when q2 is not defined as well and q1 is not false
+## test_time_it_type_error():
+   
 
-## test and functionality()
-Check implemented and functionality 
+## test_print_func():
+    
 
-## test or functionality()
-Check implemented or functionality
+## test_squared_power_list_func():
+    
 
-## test le functionality()
-Check implemented less than or equal functionality
+## test_polygon_area_func():
+    
 
-## test lt functionality()
-Check implemented less than  functionality
+## test_temp_converter_func():
+    
 
-## test gt functionality()
-Check implemented greater than functionality
+## test_speed_converter_func():
+    
 
-## test ge functionality()
-Check implemented greater than or equal functionality
+## test_squared_power_list_value_error():
+    
 
-## test eq functionality()
-Check implemented equality functionality
+## test_polygon_area_value_error():
+    
 
-## test qualean value error real()
-Check whether Value error raised when real number is not -1, 0 , 1
+## test_temp_converter_value_error():
+    
 
-## test invertsign functionality
-Check implemented invert sign functionality
+## test_speed_converter_value_error():
+    
 
-## test add functionality()
-Check implemented addition functionality
+## test_speed_converter_dist_value_error():
+    
 
-## test sqrt functionality()
-Check implemented square root functionality
+## test_speed_converter_time_value_error():
+    
 
-## test mul functionality()
-Check implemented multiplication functionality
+## test_other_print_value_error():
+    
 
-## test bool functionality()
-Check implemented bool functionality
+## test time it value error():
+    
 
 ## test all funcs present()
-Check whether all funcs __and__,  __or__, __repr__, __str__, __add__, __eq__, __float__, __ge__, __gt__, __invertsign__, __le__, __lt__, __mul__, __sqrt__, __bool__
+Check whether all funcs "squared_power_list","polygon_area","temp_converter","speed_converter","time_it"
 are implemented or not.
 
 ## test readme exists
@@ -69,9 +71,12 @@ Check whether this README file is interesting or not by counting the number of w
 
 ## test readme proper description
 Check whether this file has proper function/class description or not, by looking for these words 
-    'Qualean',
-    'Decimal',
-    'Test Cases'
+    'squared_power_list',
+    'polygon_area',
+    'temp_converter',
+    'Test Cases',
+    'speed_converter',
+    'time_it'
 
 ## test readme file for formatting
 Check Mardown formatting by counting \#, it should be greater than 10
@@ -84,4 +89,6 @@ Function name should not have capital letter
 
 1 0 2 30 3 303 30 43403 4304 30 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 er e e e e e e e e e e e e e e e ee 
 1 0 2 30 3 303 30 43403 4304 30 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 er e e e e e e e e e e e e e e e ee 
+1 0 2 30 3 303 30 43403 4304 30 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 er e e e e e e e e e e e e e e e ee
+1 0 2 30 3 303 30 43403 4304 30 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 er e e e e e e e e e e e e e e e ee
 1 0 2 30 3 303 30 43403 4304 30 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 er e e e e e e e e e e e e e e e ee
