@@ -3,22 +3,23 @@
 Assignment to check our knowledge of Functional Parameters, named or keyword arguments, positional argument. Also how to write test cases ourselves.
 
 ## test_print_type_error():
+Check print type error if kwargs dictionary does not contain named keyword argument
    
 
 ## test_squared_power_list_type_error():
-    
+Check squared_power_list type error if kwargs dictionary does not contain named keyword argument    
 
 ## test_polygon_area_type_error():
-    
+    Check polygon_area type error if kwargs dictionary does not contain named keyword argument
 
 ## test_temp_converter_type_error():
-    
+ Check temp_converter type error if kwargs dictionary does not contain named keyword argument   
 
 ## test_speed_converter_type_error():
-    
+    Check speed_converter type error if kwargs dictionary does not contain named keyword argument
 
-## test_time_it_type_error():
-   
+## test_time_it_name_error():
+   Check time_it name error if kwargs dictionary does not contain named function
 
 ## test_print_func():
     

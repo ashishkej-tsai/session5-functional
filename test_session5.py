@@ -43,7 +43,7 @@ def test_speed_converter_type_error():
     with pytest.raises(TypeError, match=r".* keyword .*"):
         output, avg_time = time_it(speed_converter, 1, sep='-', endi= ' ***\n', repetitions=5)
 
-def test_time_it_type_error():
+def test_time_it_name_error():
     with pytest.raises(NameError, match=r".* is not .*"):
         output, avg_time = time_it(printi, 1, 2, 3, sep='-', endi= ' ***\n', repetitions=5)
 
@@ -118,7 +118,7 @@ def test_readme_proper_description():
             READMELOOKSGOOD = False
             pass
     assert READMELOOKSGOOD == True, "You have not described all the functions/class well in your README.md file"
-    
+
 def test_readme_file_for_formatting():
     f = open("README.md", "r",encoding="utf-8")
     content = f.read()
